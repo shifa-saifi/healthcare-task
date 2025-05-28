@@ -1,0 +1,74 @@
+@import "./variables.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--blue-50);
+  color: var(--gray-700);
+  -webkit-font-smoothing: antialiased;
+}
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Layout helpers */
+.app-shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  grid-template-rows: 80px calc(100vh - 80px);
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+}
+
+header {
+  grid-area: header;
+}
+aside {
+  grid-area: sidebar;
+}
+main {
+  grid-area: main;
+  overflow-y: auto;
+  padding: 24px 32px;
+}
+
+/* Responsive (≤ 900 px) collapse sidebar */
+@media (max-width: 900px) {
+  .app-shell {
+    grid-template-columns: 72px 1fr;
+  }
+  .sidebar__label {
+    display: none;
+  }
+}
+
+/* Mobile (≤ 600 px) stack vertically */
+@media (max-width: 600px) {
+  .app-shell {
+    grid-template-areas:
+      "header"
+      "main";
+    grid-template-columns: 1fr;
+    grid-template-rows: 64px 1fr;
+  }
+  aside {
+    display: none;
+  }
+}
